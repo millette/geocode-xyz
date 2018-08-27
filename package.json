@@ -1,0 +1,39 @@
+{
+  "name": "geocode-xyz",
+  "description": "Geoparse, Geocode and map your geo data to latitude,longitude and elevation.",
+  "version": "0.0.0",
+  "main": "index.js",
+  "bin": "cli.js",
+  "license": "AGPL-3.0",
+  "repository": "millette/geocode-xyz",
+  "author": {
+    "name": "Robin Millette",
+    "email": "robin@millette.info",
+    "url": "http://robin.millette.info"
+  },
+  "engines": {
+    "node": ">= 8.11.4"
+  },
+  "lint-staged": {
+    "*.{js,json,md,graphql}": ["prettier-standard", "git add"]
+  },
+  "scripts": {
+    "deps": "dependency-check . && dependency-check . --unused --no-dev",
+    "lint": "standard",
+    "format": "prettier-standard '**/*.+(js|json|md|graphql)'",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "got": "^9.1.0",
+    "marked": "^0.5.0",
+    "marked-terminal": "^3.1.1",
+    "meow": "^5.0.0"
+  },
+  "devDependencies": {
+    "dependency-check": "^3.2.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
+    "prettier-standard": "^8.0.1",
+    "standard": "^11.0.1"
+  }
+}
