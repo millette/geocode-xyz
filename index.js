@@ -2,13 +2,14 @@
 
 // npm
 const fetch = require('isomorphic-unfetch')
+const deburr = require('lodash.deburr')
 
 class GeocoderXYZ {
   constructor (opts) {
     if (!opts) {
       opts = {}
     }
-    this.baseUrl = opts.baseUrl || 'https://geocode.xyz'
+    this.baseUrl = opts.baseUrl || 'https://geocode.xyz/'
     if (this.baseUrl[this.baseUrl.length - 1] !== '/') {
       this.baseUrl = `${this.baseUrl}/`
     }
@@ -16,10 +17,15 @@ class GeocoderXYZ {
   }
 
   async forward (y) {
+    y = deburr(y || '')
     let err
-    const response = await fetch(
-      `${this.baseUrl}${y || ''}?json=1${this.token}`
-    )
+    const response = await fetch(`${this.baseUrl}${y}?json=1${this.token}`, {
+      headers: {
+        accept: 'application/json; charset=utf-8'
+      }
+    })
+
+    // istanbul ignore if
     if (response.status !== 200) {
       err = new Error(response.statusText)
       err.status = response.status
@@ -27,11 +33,9 @@ class GeocoderXYZ {
     }
     const json = await response.json()
     if (json.error) {
-      err = new Error(json.error.description || 'Unknow error')
-      if (json.error.code) {
-        err.code = json.error.code
-        err.status = parseInt(json.error.code, 10)
-      }
+      err = new Error(json.error.description)
+      err.code = json.error.code
+      err.status = parseInt(json.error.code, 10)
       throw err
     }
     if (!json.standard || !json.longt || !json.latt) {
@@ -42,9 +46,7 @@ class GeocoderXYZ {
 
     json.longt = parseFloat(json.longt)
     json.latt = parseFloat(json.latt)
-    if (json.standard.confidence) {
-      json.standard.confidence = parseFloat(json.standard.confidence)
-    }
+    json.standard.confidence = parseFloat(json.standard.confidence)
     const { url, headers, status, statusText } = response
     return {
       url,
