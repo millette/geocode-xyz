@@ -8,7 +8,7 @@ Geoparse, Geocode and map your geo data to latitude,longitude and elevation.
 
 * AAA
 * BBB
-* CCC
+* etc.
 
 ## See also
 
