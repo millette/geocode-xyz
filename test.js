@@ -21,19 +21,19 @@ test('backward', async t => {
   t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
 })
 
+/*
 test('backward 0', async t => {
+  // Trying to find a place with coordinates 0 (lat or long)
   // const { json: { state, city, country, stnumber, staddress } } = await m.backward({ longt: 0, latt: 45.5559 })
-  // probably reversed...
   const { json } = await m.backward({ longt: 0, latt: 43.665235 })
   console.log('JSON:', json)
-  /*
   t.is(state, 'QC')
   t.is(city, 'Montreal')
   t.is(country, 'Canada')
   t.is(stnumber, '4141')
   t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
-  */
 })
+*/
 
 test('Montréal Stadium', async t => {
   const {
