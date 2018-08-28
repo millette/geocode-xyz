@@ -21,7 +21,7 @@ test('backward', async t => {
   t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
 })
 
-test.skip('backward 0', async t => {
+test('backward 0', async t => {
   // const { json: { state, city, country, stnumber, staddress } } = await m.backward({ longt: 0, latt: 45.5559 })
   const { json } = await m.backward({ longt: 0, latt: 180 })
   console.log('JSON:', json)
