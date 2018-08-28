@@ -4,6 +4,36 @@ import M from '.'
 
 const m = new M()
 
+test('Missing longt or latt', async t =>
+  t.throwsAsync(
+    m.backward({ longt6: -73.55035, latt: 45.5559 }),
+    'Missing `longt` or `latt`. Both are required.'
+  ))
+
+test('backward', async t => {
+  const {
+    json: { state, city, country, stnumber, staddress }
+  } = await m.backward({ longt: -73.55035, latt: 45.5559 })
+  t.is(state, 'QC')
+  t.is(city, 'Montreal')
+  t.is(country, 'Canada')
+  t.is(stnumber, '4141')
+  t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
+})
+
+test.skip('backward 0', async t => {
+  // const { json: { state, city, country, stnumber, staddress } } = await m.backward({ longt: 0, latt: 45.5559 })
+  const { json } = await m.backward({ longt: 0, latt: 180 })
+  console.log('JSON:', json)
+  /*
+  t.is(state, 'QC')
+  t.is(city, 'Montreal')
+  t.is(country, 'Canada')
+  t.is(stnumber, '4141')
+  t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
+  */
+})
+
 test('Montréal Stadium', async t => {
   const {
     json: { standard: { city, countryname, postal }, longt, latt }

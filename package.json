@@ -16,7 +16,7 @@
     "node": ">= 8.11.4"
   },
   "lint-staged": {
-    "*.{js,json,md,graphql}": ["prettier-standard", "git add"]
+    "*.{js,json,md}": ["prettier-standard", "git add"]
   },
   "browser": {
     "marked": false,
@@ -26,9 +26,9 @@
   "scripts": {
     "deps": "dependency-check . && dependency-check . --unused --no-dev",
     "lint": "standard",
-    "format": "prettier-standard '**/*.+(js|json|md|graphql)'",
+    "format": "prettier-standard '**/*.+(js|json|md)'",
     "precommit": "lint-staged",
-    "test": "standard && nyc ava"
+    "test": "standard && nyc ava --serial --fail-fast"
   },
   "dependencies": {
     "isomorphic-unfetch": "^2.1.1",
