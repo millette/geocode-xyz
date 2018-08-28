@@ -9,12 +9,17 @@ const TerminalRenderer = require('marked-terminal')
 
 // self
 const geocode = require('.')
-const { localFile } = geocode
 const { name } = require('./package.json')
+
+// core
+const { readFileSync } = require('fs')
+const { join } = require('path')
 
 marked.setOptions({
   renderer: new TerminalRenderer()
 })
+
+const localFile = path => readFileSync(join(__dirname, path), 'utf-8')
 
 const readme = marked(localFile('README.md'))
 
@@ -29,12 +34,18 @@ const run = async cli => {
   Missing required argument.
   ${cli.help}`)
     }
+
+    // 'https://api.github.com/user/1'
+    const oy = await geocode('https://api.github.com/user/0')
+    console.log('OY:', oy)
   } catch (e) {
-    console.error('\n\n', e.errors ? e : e.toString())
-    if (e.headers) {
-      console.error('headers:', e.headers)
+    if (e.status) {
+      console.error('code:', e.status)
+      process.exitCode = e.status
+    } else {
+      process.exitCode = 127
     }
-    process.exitCode = e.statusCodes || 127
+    console.error(e.toString())
   }
 }
 
