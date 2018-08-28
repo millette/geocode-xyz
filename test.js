@@ -4,37 +4,48 @@ import M from '.'
 
 const m = new M()
 
-test('error: no results', async t =>
+test('Montréal Stadium', async t => {
+  const {
+    json: { standard: { city, countryname, postal }, longt, latt }
+  } = await m.forward('4141 Pierre-de Coubertin, Montréal, Canada')
+  t.is(longt, -73.55035)
+  t.is(latt, 45.5559)
+  t.is(city, 'Montréal')
+  t.is(countryname, 'Canada')
+  t.is(postal, 'H1V3N7')
+})
+
+test('no results', async t =>
   t.throwsAsync(m.forward('aljkhsdlwe'), { code: '008' }))
 
-test('error: supply a valid query ("")', async t =>
+test('supply a valid query ("")', async t =>
   t.throwsAsync(m.forward(''), { code: '007' }))
 
-test('error: supply a valid query (undef)', async t =>
+test('supply a valid query (undef)', async t =>
   t.throwsAsync(m.forward(), { code: '007' }))
 
-test('error: bad token', async t => {
+test('bad token', async t => {
   const mBad = new M({ token: 'joe' })
   await t.throwsAsync(mBad.forward('montreal'), { code: '003' })
   await t.throwsAsync(mBad.forward(), { code: '003' })
 })
 
-test('error: bad baseUrl (relative)', async t => {
+test('bad baseUrl (relative)', async t => {
   const mBad = new M({ baseUrl: 'joe' })
   await t.throwsAsync(mBad.forward(), 'Only absolute URLs are supported')
 })
 
-test('error: bad baseUrl (no server)', async t => {
+test('bad baseUrl (no server)', async t => {
   const mBad = new M({ baseUrl: '/joe' })
   await t.throwsAsync(mBad.forward(), 'Only absolute URLs are supported')
 })
 
-test('error: bad baseUrl (unresponsive server)', async t => {
+test('bad baseUrl (unresponsive server)', async t => {
   const mBad = new M({ baseUrl: 'http://aljkhsdlwe' })
   await t.throwsAsync(mBad.forward(), { code: 'ENOTFOUND' })
 })
 
-test('error: bad baseUrl (wrong server)', async t => {
+test('bad baseUrl (wrong server)', async t => {
   const mBad = new M({ baseUrl: 'https://api.github.com' })
   await t.throwsAsync(
     mBad.forward('user/1'),
