@@ -5,6 +5,9 @@ const fetch = require('isomorphic-unfetch')
 const deburr = require('lodash.deburr')
 const pThrottle = require('p-throttle')
 
+// self
+const { name, version } = require('./package.json')
+
 class GeocoderXYZ {
   constructor (opts) {
     if (!opts) {
@@ -22,7 +25,7 @@ class GeocoderXYZ {
     let err
     const response = await fetch(q, {
       headers: {
-        'user-agent': 'millette/geocode-xyz client 0.0.0',
+        'user-agent': `${name} client v${version}`,
         accept: 'application/json; charset=utf-8'
       }
     })
