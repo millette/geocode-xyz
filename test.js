@@ -15,7 +15,7 @@ test('backward', async t => {
     json: { state, city, country, stnumber, staddress }
   } = await m.backward({ longt: -73.55035, latt: 45.5559 })
   t.is(state, 'QC')
-  t.is(city, 'Montreal')
+  t.is(city, 'Mercier–Hochelaga-Maisonneuve')
   t.is(country, 'Canada')
   t.is(stnumber, '4141')
   t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
