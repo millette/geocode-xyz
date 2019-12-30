@@ -23,11 +23,17 @@
     "marked-terminal": false,
     "meow": false
   },
+
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+
   "scripts": {
     "deps": "dependency-check . && dependency-check . --unused --no-dev",
     "lint": "standard",
     "format": "prettier-standard '**/*.+(js|json|md)'",
-    "precommit": "lint-staged",
     "test": "standard && nyc ava --serial --fail-fast",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -44,7 +50,7 @@
     "coveralls": "^3.0.2",
     "dependency-check": "^3.2.0",
     "husky": "^3.1.0",
-    "lint-staged": "^7.2.2",
+    "lint-staged": "^9.5.0",
     "nyc": "^14.1.1",
     "prettier-standard": "^8.0.1",
     "standard": "^14.3.1"
