@@ -18,7 +18,7 @@ test('backward', async t => {
   t.is(city, 'Montréal')
   t.is(country, 'Canada')
   t.is(stnumber, '4141')
-  t.is(staddress, 'AVE PIERRE-DE COUBERTIN')
+  t.is(staddress, 'Pierre-De Coubertin AV')
 })
 
 /*
@@ -39,11 +39,11 @@ test('Montréal Stadium', async t => {
   const {
     json: { standard: { city, countryname, postal }, longt, latt }
   } = await m.forward('4141 Pierre-de Coubertin, Montréal, Canada')
-  t.is(longt, -73.55035)
-  t.is(latt, 45.5559)
-  t.is(city, 'Montréal')
+  t.is(longt, -73.55037)
+  t.is(latt, 45.55557)
+  t.is(city, 'Montreal')
   t.is(countryname, 'Canada')
-  t.is(postal, 'H1V3N7')
+  t.is(postal, 'H1V1A5')
 })
 
 test('no results', async t =>
