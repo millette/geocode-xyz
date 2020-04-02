@@ -16,7 +16,7 @@
   },
   "lint-staged": {
     "*.{js,json,md}": [
-      "prettier-standard",
+      "prettier --write",
       "git add"
     ]
   },
@@ -32,9 +32,8 @@
   },
   "scripts": {
     "deps": "dependency-check . && dependency-check . --unused --no-dev",
-    "lint": "standard",
-    "format": "prettier-standard '**/*.+(js|json|md)'",
-    "test": "standard && nyc ava --serial --fail-fast",
+    "format": "prettier --write '**/*.+(js|json|md)'",
+    "test": "nyc ava --serial --fail-fast",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
@@ -52,7 +51,6 @@
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "nyc": "^15.0.0",
-    "prettier-standard": "^16.1.0",
-    "standard": "^14.3.1"
+    "prettier": "^2.0.2"
   }
 }
